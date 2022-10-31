@@ -1,0 +1,1 @@
+delete from CAR where idCar = 4;
