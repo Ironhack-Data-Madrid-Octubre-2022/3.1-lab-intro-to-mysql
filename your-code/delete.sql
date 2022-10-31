@@ -1,0 +1,1 @@
+Delete from cars where ID = 5
