@@ -1,22 +1,18 @@
 -- MySQL Workbench Forward Engineering
-
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
-
 -- -----------------------------------------------------
 -- Schema mydb
 -- -----------------------------------------------------
 -- -----------------------------------------------------
 -- Schema car_dealership
 -- -----------------------------------------------------
-
 -- -----------------------------------------------------
 -- Schema car_dealership
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `car_dealership` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
 USE `car_dealership` ;
-
 -- -----------------------------------------------------
 -- Table `car_dealership`.`cars`
 -- -----------------------------------------------------
@@ -27,12 +23,11 @@ CREATE TABLE IF NOT EXISTS `car_dealership`.`cars` (
   `Model` VARCHAR(20) NOT NULL,
   `Year` YEAR NOT NULL,
   `Colour` VARCHAR(20) NOT NULL,
-  PRIMARY KEY (`idCars`))
+  PRIMARY KEY (`idCars`),
+  UNIQUE INDEX `VIN_UNIQUE` (`VIN` ASC) VISIBLE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
-
-
 -- -----------------------------------------------------
 -- Table `car_dealership`.`customers`
 -- -----------------------------------------------------
@@ -40,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `car_dealership`.`customers` (
   `idCustomers` INT NOT NULL,
   `Customer ID` VARCHAR(20) NOT NULL,
   `Name` VARCHAR(20) NOT NULL,
-  `Phone number` VARCHAR(45) NULL,
+  `Phone Number` CHAR(9) NOT NULL,
   `Email` VARCHAR(45) NOT NULL,
   `Adress` VARCHAR(45) NOT NULL,
   `City` VARCHAR(45) NOT NULL,
@@ -51,8 +46,6 @@ CREATE TABLE IF NOT EXISTS `car_dealership`.`customers` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
-
-
 -- -----------------------------------------------------
 -- Table `car_dealership`.`salespersons`
 -- -----------------------------------------------------
@@ -65,8 +58,6 @@ CREATE TABLE IF NOT EXISTS `car_dealership`.`salespersons` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
-
-
 -- -----------------------------------------------------
 -- Table `car_dealership`.`invoices`
 -- -----------------------------------------------------
@@ -94,8 +85,20 @@ CREATE TABLE IF NOT EXISTS `car_dealership`.`invoices` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
-
-
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+insert into Cars (idCars,VIN,Manufacturer,Model,Year,Colour)
+values ('0','3K096I98581DHSNUP','Volkswagen','Tiguan','2019','Blue');
+values ('1','ZM8G7BEUQZ97IH46V','Peugeot','Rifter','2019','Red');
+values ('2','RKXVNNIHLVVZOUB4M','Ford','Fusion','2018','White');
+values ('3','HKNDGS7CU31E9Z7JW','Toyota','RAV4','2018','Silver');
+values ('4','DAM41UDN3CHU2WVF6','Volvo','V60','2019','Gray');
+values ('5','DAM41UDN3CHU2WVF6','Volvo','V60 Cross Country','2019','Gray');
+
+
+
+
+
+

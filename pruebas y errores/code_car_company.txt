@@ -1,0 +1,94 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema cars company
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema cars company
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `cars company` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
+USE `cars company` ;
+
+-- -----------------------------------------------------
+-- Table `cars company`.`Cars`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `cars company`.`Cars` (
+  `VIN` INT NOT NULL,
+  `Manufacturer` VARCHAR(45) NOT NULL,
+  `Model` VARCHAR(45) NOT NULL,
+  `Year` YEAR(4) NOT NULL,
+  `Color` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`VIN`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cars company`.`Custumers`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `cars company`.`Custumers` (
+  `Custumers ID` INT NOT NULL,
+  `Name` VARCHAR(45) NOT NULL,
+  `Phone number` VARCHAR(45) NOT NULL,
+  `Email` VARCHAR(45) NOT NULL,
+  `State/Province` VARCHAR(45) NOT NULL,
+  `Country` VARCHAR(45) NOT NULL,
+  `Zip/Postal code` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`Custumers ID`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cars company`.`SalesPerson`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `cars company`.`SalesPerson` (
+  `Staff ID` INT NOT NULL,
+  `SalesPersoncol` VARCHAR(45) NOT NULL,
+  `Name` VARCHAR(45) NULL,
+  `Store` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`Staff ID`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cars company`.`Invoice`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `cars company`.`Invoice` (
+  `Invoice ID` INT NOT NULL,
+  `Invoice number` VARCHAR(45) NULL,
+  `Date` DATE NOT NULL,
+  `Custumers_Custumers ID` INT NOT NULL,
+  `SalesPerson_Staff ID` INT NOT NULL,
+  `Cars_VIN` INT NOT NULL,
+  PRIMARY KEY (`Invoice ID`, `Custumers_Custumers ID`, `SalesPerson_Staff ID`, `Cars_VIN`),
+  INDEX `fk_Invoice_Custumers1_idx` (`Custumers_Custumers ID` ASC) VISIBLE,
+  INDEX `fk_Invoice_SalesPerson1_idx` (`SalesPerson_Staff ID` ASC) VISIBLE,
+  INDEX `fk_Invoice_Cars1_idx` (`Cars_VIN` ASC) VISIBLE,
+  CONSTRAINT `fk_Invoice_Custumers1`
+    FOREIGN KEY (`Custumers_Custumers ID`)
+    REFERENCES `cars company`.`Custumers` (`Custumers ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Invoice_SalesPerson1`
+    FOREIGN KEY (`SalesPerson_Staff ID`)
+    REFERENCES `cars company`.`SalesPerson` (`Staff ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Invoice_Cars1`
+    FOREIGN KEY (`Cars_VIN`)
+    REFERENCES `cars company`.`Cars` (`VIN`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
